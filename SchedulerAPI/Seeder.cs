@@ -43,7 +43,6 @@ namespace SchedulerAPI.Seeder
                 {
                     UserName = "admin@example.com",
                     Email = "admin@example.com",
-                    // Add other properties as needed
                 };
 
                 await userManager.CreateAsync(adminUser, "AdminPassword123"); 
