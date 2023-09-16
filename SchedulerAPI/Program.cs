@@ -73,7 +73,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<JobRepository>();
 builder.Services.AddScoped<ProjectRepository>();
 builder.Services.AddScoped<NotificationRepository>();
-builder.Services.AddSingleton<MailingService>();
+builder.Services.AddScoped<MailingService>();
 builder.Services.AddHostedService<NotificationService>();
 
 var app = builder.Build();

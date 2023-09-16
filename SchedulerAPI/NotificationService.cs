@@ -10,12 +10,13 @@ public class NotificationService : IHostedService
     private ProjectRepository _projectRepository;
     private MailingService _mailingService;
 
-    public NotificationService(JobRepository jobRepository, NotificationRepository notificationRepository, ProjectRepository projectRepository, MailingService mailingService)
+    public NotificationService(IServiceScopeFactory scopeFactory)
     {
-        _jobRepository = jobRepository;
-        _notificationRepository = notificationRepository;
-        _projectRepository = projectRepository;
-        _mailingService = mailingService;
+         var scope = scopeFactory.CreateScope();
+        _jobRepository = scope.ServiceProvider.GetRequiredService<JobRepository>();
+        _notificationRepository = scope.ServiceProvider.GetRequiredService<NotificationRepository>();
+        _projectRepository = scope.ServiceProvider.GetRequiredService<ProjectRepository>();
+        _mailingService = scope.ServiceProvider.GetRequiredService<MailingService>();
 
     }
     public Task StartAsync(CancellationToken cancellationToken)
