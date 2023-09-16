@@ -15,13 +15,10 @@ namespace SchedulerAPI.Seeder
             context.Database.EnsureCreated();
             if (!context.Users.Any())
             {
-                // Seed roles (if not already seeded)
                 SeedRoles(roleManager).Wait();
 
-                // Seed users and assign roles
                 SeedUsers(userManager).Wait();
 
-                // Seed projects, jobs, and notifications
                 SeedProjects(context);
                 SeedJobs(context);
                 SeedNotifications(context);
@@ -49,7 +46,7 @@ namespace SchedulerAPI.Seeder
                     // Add other properties as needed
                 };
 
-                await userManager.CreateAsync(adminUser, "AdminPassword123"); // Set a secure password
+                await userManager.CreateAsync(adminUser, "AdminPassword123"); 
 
                 // Assign the "Admin" role to one user
                 await userManager.AddToRoleAsync(adminUser, "Admin");
@@ -61,10 +58,9 @@ namespace SchedulerAPI.Seeder
                     {
                         UserName = $"user{i}@example.com",
                         Email = $"user{i}@example.com",
-                        // Add other properties as needed
                     };
 
-                    await userManager.CreateAsync(user, "UserPassword123"); // Set a secure password
+                    await userManager.CreateAsync(user, "UserPassword123"); 
                 }
             }
         }
@@ -80,7 +76,7 @@ namespace SchedulerAPI.Seeder
                     ProjectId = Guid.NewGuid().ToString(),
                     Name = $"Project {i}",
                     Description = $"Description for Project {i}",
-                    UserId = userIds[i % userIds.Count], // Assign a user in a round-robin fashion
+                    UserId = userIds[i % userIds.Count], 
                 };
 
                 context.Projects.Add(project);
@@ -104,8 +100,8 @@ namespace SchedulerAPI.Seeder
                     DueDate = DateTime.Now.AddDays(i),
                     Priority = Priority.Medium,
                     Status = JobStatus.Pending,
-                    ProjectId = projectIds[i % projectIds.Count], // Assign a project in a round-robin fashion
-                    UserId = userIds[i % userIds.Count], // Assign a user in a round-robin fashion
+                    ProjectId = projectIds[i % projectIds.Count], 
+                    UserId = userIds[i % userIds.Count], 
                 };
 
                 context.Jobs.Add(job);
@@ -125,7 +121,7 @@ namespace SchedulerAPI.Seeder
                     Type = NotificationType.DueDateReminder,
                     Message = $"Reminder {i}",
                     Timestamp = DateTime.Now.AddMinutes(i),
-                    UserId = userIds[i % userIds.Count], // Assign a user in a round-robin fashion
+                    UserId = userIds[i % userIds.Count], 
                     IsRead = false,
                 };
 
