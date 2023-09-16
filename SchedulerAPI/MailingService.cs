@@ -17,7 +17,7 @@ namespace SchedulerAPI
             // obtain users detail from notification
             var user = await _userManager.FindByIdAsync(notification.UserId);
             // send mail to user
-            Console.WriteLine($"Sending mail to {user.Email}");
+            Console.WriteLine($"Sending mail to {user.Email} with the message: {notification.Message}");
 
         }
     }
